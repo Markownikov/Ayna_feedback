@@ -8,56 +8,133 @@ const Home = () => {
   return (
     <div className="main-content">
       <div className="container">
-        <div style={{ textAlign: 'center', padding: '4rem 0' }}>
-          <h1 style={{ fontSize: '3rem', marginBottom: '1rem', color: '#2c3e50' }}>
-            Feedback Collection Platform
-          </h1>
-          <p style={{ fontSize: '1.2rem', color: '#666', marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem' }}>
-            Create beautiful feedback forms, collect responses, and analyze data with ease. 
-            Perfect for businesses looking to gather customer insights.
+        {/* Hero Section */}
+        <div className="text-center animate-fadeIn" style={{ padding: '5rem 0' }}>
+          <div 
+            style={{ 
+              background: 'var(--primary-gradient)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              fontSize: '4rem',
+              fontWeight: '700',
+              marginBottom: '1.5rem',
+              lineHeight: '1.2'
+            }}
+          >
+            ✨ Feedback Collection Platform
+          </div>
+          <p 
+            style={{ 
+              fontSize: '1.3rem', 
+              color: 'var(--text-light)', 
+              marginBottom: '3rem', 
+              maxWidth: '700px', 
+              margin: '0 auto 3rem',
+              lineHeight: '1.6'
+            }}
+          >
+            Create beautiful, responsive feedback forms with advanced analytics. 
+            Collect insights, engage your audience, and make data-driven decisions with ease.
           </p>
           
           {isAuthenticated ? (
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-              <Link to="/dashboard" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
-                Go to Dashboard
+            <div className="flex gap-4 justify-center animate-slideIn">
+              <Link 
+                to="/dashboard" 
+                className="btn btn-primary"
+                style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', minWidth: '200px' }}
+              >
+                📊 Dashboard
               </Link>
-              <Link to="/create-form" className="btn btn-success" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
-                Create New Form
+              <Link 
+                to="/create-form" 
+                className="btn btn-success"
+                style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', minWidth: '200px' }}
+              >
+                ✨ Create Form
               </Link>
             </div>
           ) : (
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-              <Link to="/register" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
-                Get Started
+            <div className="flex gap-4 justify-center animate-slideIn">
+              <Link 
+                to="/register" 
+                className="btn btn-primary"
+                style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', minWidth: '200px' }}
+              >
+                🚀 Get Started
               </Link>
-              <Link to="/login" className="btn btn-secondary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
-                Login
+              <Link 
+                to="/login" 
+                className="btn btn-outline"
+                style={{ padding: '1.25rem 2.5rem', fontSize: '1.1rem', minWidth: '200px' }}
+              >
+                🔐 Login
               </Link>
             </div>
           )}
         </div>
         
-        <div className="forms-grid" style={{ marginTop: '4rem' }}>
-          <div className="card">
-            <h3 style={{ color: '#2c3e50', marginBottom: '1rem' }}>📝 Easy Form Creation</h3>
-            <p style={{ color: '#666' }}>
-              Create custom feedback forms with text and multiple-choice questions in minutes.
+        {/* Features Section */}
+        <div className="forms-grid" style={{ marginTop: '5rem' }}>
+          <div className="card animate-fadeIn" style={{ animationDelay: '0.2s' }}>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem', textAlign: 'center' }}>📝</div>
+            <h3 className="text-gradient" style={{ marginBottom: '1rem', fontSize: '1.5rem', textAlign: 'center' }}>
+              Easy Form Creation
+            </h3>
+            <p style={{ color: 'var(--text-light)', textAlign: 'center', lineHeight: '1.6' }}>
+              Build sophisticated feedback forms with our intuitive drag-and-drop interface. 
+              Support for text, multiple-choice, and custom question types.
             </p>
           </div>
           
-          <div className="card">
-            <h3 style={{ color: '#2c3e50', marginBottom: '1rem' }}>🔗 Public Sharing</h3>
-            <p style={{ color: '#666' }}>
-              Share your forms with a simple public URL. No login required for respondents.
+          <div className="card animate-fadeIn" style={{ animationDelay: '0.4s' }}>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem', textAlign: 'center' }}>🔗</div>
+            <h3 className="text-gradient" style={{ marginBottom: '1rem', fontSize: '1.5rem', textAlign: 'center' }}>
+              Public Sharing
+            </h3>
+            <p style={{ color: 'var(--text-light)', textAlign: 'center', lineHeight: '1.6' }}>
+              Share your forms instantly with secure public URLs. Mobile-responsive design 
+              ensures perfect experience across all devices.
             </p>
           </div>
           
-          <div className="card">
-            <h3 style={{ color: '#2c3e50', marginBottom: '1rem' }}>📊 Response Analytics</h3>
-            <p style={{ color: '#666' }}>
-              View all responses in a clean dashboard and export data as CSV files.
+          <div className="card animate-fadeIn" style={{ animationDelay: '0.6s' }}>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem', textAlign: 'center' }}>📊</div>
+            <h3 className="text-gradient" style={{ marginBottom: '1rem', fontSize: '1.5rem', textAlign: 'center' }}>
+              Advanced Analytics
+            </h3>
+            <p style={{ color: 'var(--text-light)', textAlign: 'center', lineHeight: '1.6' }}>
+              Visualize responses with beautiful charts and graphs. Export data as CSV, 
+              track trends, and gain actionable insights.
             </p>
+          </div>
+        </div>
+
+        {/* Additional Features */}
+        <div className="mt-4">
+          <div className="card animate-fadeIn" style={{ animationDelay: '0.8s', textAlign: 'center', padding: '3rem' }}>
+            <h2 className="text-gradient" style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
+              Ready to Start Collecting Feedback?
+            </h2>
+            <p style={{ 
+              fontSize: '1.2rem', 
+              color: 'var(--text-light)', 
+              marginBottom: '2rem',
+              maxWidth: '600px',
+              margin: '0 auto 2rem'
+            }}>
+              Join thousands of businesses already using our platform to gather valuable customer insights.
+            </p>
+            {!isAuthenticated && (
+              <Link 
+                to="/register" 
+                className="btn btn-primary animate-pulse"
+                style={{ padding: '1.5rem 3rem', fontSize: '1.2rem' }}
+              >
+                🎯 Start Free Today
+              </Link>
+            )}
           </div>
         </div>
       </div>

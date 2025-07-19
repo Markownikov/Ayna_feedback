@@ -119,20 +119,25 @@ const CreateForm = () => {
   return (
     <div className="main-content">
       <div className="container">
-        <div className="card" style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div className="card animate-fadeIn" style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div className="card-header">
-            <h1 className="card-title">Create New Feedback Form</h1>
+            <div>
+              <h1 className="card-title">✨ Create New Feedback Form</h1>
+              <p style={{ color: 'var(--text-light)', fontSize: '1.1rem', margin: '0.5rem 0' }}>
+                Design your custom feedback form with up to 5 questions
+              </p>
+            </div>
           </div>
           
           {error && (
-            <div className="alert alert-error">
-              {error}
+            <div className="alert alert-error animate-slideIn">
+              ❌ {error}
             </div>
           )}
           
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label className="form-label">Form Title *</label>
+              <label className="form-label">📝 Form Title *</label>
               <input
                 type="text"
                 name="title"
@@ -145,76 +150,106 @@ const CreateForm = () => {
             </div>
             
             <div className="form-group">
-              <label className="form-label">Description (Optional)</label>
+              <label className="form-label">📄 Description (Optional)</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
                 className="form-textarea"
-                placeholder="Brief description of your feedback form"
+                placeholder="Brief description of your feedback form's purpose..."
                 rows="3"
               />
             </div>
             
             <div className="form-group">
-              <label className="form-label">Questions ({formData.questions.length}/5)</label>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                marginBottom: '1.5rem'
+              }}>
+                <label className="form-label" style={{ margin: 0 }}>
+                  ❓ Questions ({formData.questions.length}/5)
+                </label>
+                {formData.questions.length < 5 && (
+                  <button
+                    type="button"
+                    onClick={addQuestion}
+                    className="btn btn-success"
+                    style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+                  >
+                    ➕ Add Question
+                  </button>
+                )}
+              </div>
               
               {formData.questions.map((question, index) => (
-                <div key={index} className="question-item">
+                <div key={index} className="question-item animate-fadeIn" style={{ animationDelay: `${index * 0.1}s` }}>
                   <div className="question-header">
-                    <span style={{ fontWeight: 'bold' }}>Question {index + 1}</span>
+                    <span style={{ fontWeight: 'bold', color: 'var(--primary-color)' }}>
+                      📝 Question {index + 1}
+                    </span>
                     {formData.questions.length > 3 && (
                       <button
                         type="button"
                         onClick={() => removeQuestion(index)}
                         className="btn btn-danger"
-                        style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem' }}
+                        style={{ fontSize: '0.8rem', padding: '0.5rem 1rem' }}
                       >
-                        Remove
+                        🗑️ Remove
                       </button>
                     )}
                   </div>
                   
                   <div className="form-group">
+                    <label className="form-label">Question Text *</label>
                     <input
                       type="text"
                       value={question.text}
                       onChange={(e) => handleQuestionChange(index, 'text', e.target.value)}
                       className="form-input"
-                      placeholder="Enter your question"
+                      placeholder={`Enter question ${index + 1}...`}
                     />
                   </div>
                   
                   <div className="form-group">
+                    <label className="form-label">Question Type</label>
                     <select
                       value={question.type}
                       onChange={(e) => handleQuestionChange(index, 'type', e.target.value)}
                       className="form-select"
                     >
-                      <option value="text">Text Answer</option>
-                      <option value="multiple-choice">Multiple Choice</option>
+                      <option value="text">📝 Text Response</option>
+                      <option value="multiple-choice">🔘 Multiple Choice</option>
                     </select>
                   </div>
                   
                   {question.type === 'multiple-choice' && (
                     <div className="form-group">
-                      <label className="form-label">Options:</label>
+                      <label className="form-label">🔘 Answer Options (min 2 required)</label>
                       {question.options.map((option, optionIndex) => (
-                        <div key={optionIndex} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                        <div key={optionIndex} style={{ 
+                          display: 'flex', 
+                          gap: '0.75rem', 
+                          marginBottom: '0.75rem',
+                          alignItems: 'center'
+                        }}>
                           <input
                             type="text"
                             value={option}
                             onChange={(e) => handleOptionChange(index, optionIndex, e.target.value)}
                             className="form-input"
                             placeholder={`Option ${optionIndex + 1}`}
+                            style={{ flex: 1 }}
                           />
                           {question.options.length > 2 && (
                             <button
                               type="button"
                               onClick={() => removeOption(index, optionIndex)}
                               className="btn btn-danger"
+                              style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
                             >
-                              Remove
+                              ❌
                             </button>
                           )}
                         </div>
@@ -223,9 +258,9 @@ const CreateForm = () => {
                         type="button"
                         onClick={() => addOption(index)}
                         className="btn btn-secondary"
-                        style={{ fontSize: '0.8rem' }}
+                        style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
                       >
-                        Add Option
+                        ➕ Add Option
                       </button>
                     </div>
                   )}
@@ -244,20 +279,29 @@ const CreateForm = () => {
               )}
             </div>
             
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+            <div style={{ 
+              display: 'flex', 
+              gap: '1.5rem', 
+              justifyContent: 'center',
+              marginTop: '3rem',
+              paddingTop: '2rem',
+              borderTop: '2px solid var(--light-color)'
+            }}>
               <button
                 type="button"
                 onClick={() => navigate('/dashboard')}
                 className="btn btn-secondary"
+                style={{ minWidth: '150px' }}
               >
-                Cancel
+                ← Cancel
               </button>
               <button
                 type="submit"
                 className="btn btn-primary"
                 disabled={loading}
+                style={{ minWidth: '200px' }}
               >
-                {loading ? 'Creating Form...' : 'Create Form'}
+                {loading ? '🔄 Creating Form...' : '✨ Create Form'}
               </button>
             </div>
           </form>

@@ -6,6 +6,7 @@ const Dashboard = () => {
   const [forms, setForms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetchForms();
@@ -27,6 +28,8 @@ const Dashboard = () => {
       try {
         await formsAPI.deleteForm(formId);
         setForms(forms.filter(form => form._id !== formId));
+        setSuccessMessage('Form deleted successfully!');
+        setTimeout(() => setSuccessMessage(''), 3000);
       } catch (error) {
         setError('Failed to delete form');
       }
@@ -35,14 +38,19 @@ const Dashboard = () => {
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
-    alert('Link copied to clipboard!');
+    setSuccessMessage('Link copied to clipboard! 📋');
+    setTimeout(() => setSuccessMessage(''), 3000);
+  };
+
+  const getTotalResponses = () => {
+    return forms.reduce((total, form) => total + (form.responseCount || 0), 0);
   };
 
   if (loading) {
     return (
-      <div className="loading">
+      <div className="loading animate-fadeIn">
         <div className="spinner"></div>
-        Loading your forms...
+        <p>Loading your forms...</p>
       </div>
     );
   }
@@ -50,41 +58,77 @@ const Dashboard = () => {
   return (
     <div className="main-content">
       <div className="container">
-        <div className="dashboard-header">
-          <h1>My Forms</h1>
+        <div className="dashboard-header animate-fadeIn">
+          <div>
+            <h1>📊 My Forms Dashboard</h1>
+            <p style={{ color: 'var(--text-light)', fontSize: '1.1rem', margin: '0.5rem 0' }}>
+              Manage your feedback forms and analyze responses
+            </p>
+          </div>
           <Link to="/create-form" className="btn btn-primary">
-            Create New Form
+            ✨ Create New Form
           </Link>
         </div>
 
+        {/* Stats Cards */}
+        {forms.length > 0 && (
+          <div className="stats-grid animate-slideIn">
+            <div className="stat-card">
+              <div className="stat-number">{forms.length}</div>
+              <div className="stat-label">Total Forms</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-number">{getTotalResponses()}</div>
+              <div className="stat-label">Total Responses</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-number">
+                {forms.length > 0 ? Math.round(getTotalResponses() / forms.length) : 0}
+              </div>
+              <div className="stat-label">Avg per Form</div>
+            </div>
+          </div>
+        )}
+
+        {successMessage && (
+          <div className="alert alert-success animate-fadeIn">
+            {successMessage}
+          </div>
+        )}
+
         {error && (
-          <div className="alert alert-error">
+          <div className="alert alert-error animate-fadeIn">
             {error}
           </div>
         )}
 
         {forms.length === 0 ? (
-          <div className="card" style={{ textAlign: 'center', padding: '3rem' }}>
-            <h3 style={{ color: '#666', marginBottom: '1rem' }}>No forms yet</h3>
-            <p style={{ color: '#888', marginBottom: '2rem' }}>
-              Create your first feedback form to get started!
+          <div className="empty-state animate-fadeIn">
+            <div className="empty-state-icon">📝</div>
+            <h3 className="empty-state-title">No forms yet</h3>
+            <p className="empty-state-description">
+              Create your first feedback form to start collecting valuable insights from your users!
             </p>
             <Link to="/create-form" className="btn btn-primary">
-              Create Your First Form
+              🚀 Create Your First Form
             </Link>
           </div>
         ) : (
           <div className="forms-grid">
-            {forms.map((form) => (
-              <div key={form._id} className="form-card">
-                <div className="form-card-title">{form.title}</div>
+            {forms.map((form, index) => (
+              <div 
+                key={form._id} 
+                className="form-card animate-fadeIn" 
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="form-card-title">📋 {form.title}</div>
                 {form.description && (
                   <div className="form-card-description">{form.description}</div>
                 )}
                 
                 <div className="form-card-stats">
-                  <span>{form.responseCount || 0} responses</span>
-                  <span>{form.questions.length} questions</span>
+                  <span>📊 {form.responseCount || 0} responses</span>
+                  <span>❓ {form.questions.length} questions</span>
                 </div>
                 
                 <div className="form-card-actions">
@@ -92,24 +136,37 @@ const Dashboard = () => {
                     to={`/forms/${form._id}/responses`} 
                     className="btn btn-primary"
                   >
-                    View Responses
+                    📈 View Responses
                   </Link>
                   <button
                     onClick={() => copyToClipboard(`${window.location.origin}/form/${form.publicUrl}`)}
                     className="btn btn-secondary"
                   >
-                    Copy Link
+                    🔗 Copy Link
                   </button>
                   <button
                     onClick={() => handleDelete(form._id)}
                     className="btn btn-danger"
                   >
-                    Delete
+                    🗑️ Delete
                   </button>
                 </div>
                 
-                <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: '#888' }}>
-                  Public URL: <code>{`${window.location.origin}/form/${form.publicUrl}`}</code>
+                <div 
+                  style={{ 
+                    marginTop: '1rem', 
+                    padding: '0.75rem',
+                    background: 'var(--light-color)',
+                    borderRadius: 'var(--border-radius-sm)',
+                    fontSize: '0.85rem', 
+                    color: 'var(--text-light)',
+                    wordBreak: 'break-all'
+                  }}
+                >
+                  <strong>🌐 Public URL:</strong><br />
+                  <code style={{ fontSize: '0.8rem' }}>
+                    {`${window.location.origin}/form/${form.publicUrl}`}
+                  </code>
                 </div>
               </div>
             ))}

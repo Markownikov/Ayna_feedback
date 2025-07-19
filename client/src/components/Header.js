@@ -14,33 +14,33 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
           <Link to="/" className="logo">
-            Feedback Platform
+            ✨ Feedback Platform
           </Link>
           
           <nav className="nav-links">
             {isAuthenticated ? (
               <>
                 <Link to="/dashboard" className="nav-link">
-                  Dashboard
+                  📊 Dashboard
                 </Link>
                 <Link to="/create-form" className="nav-link">
-                  Create Form
+                  ➕ Create Form
                 </Link>
-                <span className="nav-link">Welcome, {user.name}</span>
+                <span className="nav-link">👋 Welcome, {user.name}</span>
                 <button 
                   onClick={handleLogout} 
                   className="btn btn-secondary"
                 >
-                  Logout
+                  🚪 Logout
                 </button>
               </>
             ) : (
               <>
                 <Link to="/login" className="nav-link">
-                  Login
+                  🔐 Login
                 </Link>
                 <Link to="/register" className="btn btn-primary">
-                  Register
+                  🚀 Register
                 </Link>
               </>
             )}

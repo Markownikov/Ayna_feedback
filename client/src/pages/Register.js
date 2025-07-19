@@ -55,60 +55,67 @@ const Register = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
-        <h2 className="auth-title">Create Your Account</h2>
+      <div className="auth-card animate-fadeIn">
+        <h2 className="auth-title">🚀 Join Our Platform!</h2>
+        <p style={{ textAlign: 'center', color: 'var(--text-light)', marginBottom: '2rem' }}>
+          Create your account and start building amazing feedback forms
+        </p>
         
         {error && (
-          <div className="alert alert-error">
-            {error}
+          <div className="alert alert-error animate-slideIn">
+            ❌ {error}
           </div>
         )}
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Name</label>
+            <label className="form-label">👤 Full Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               className="form-input"
+              placeholder="Enter your full name"
               required
             />
           </div>
           
           <div className="form-group">
-            <label className="form-label">Email</label>
+            <label className="form-label">📧 Email Address</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               className="form-input"
+              placeholder="Enter your email"
               required
             />
           </div>
           
           <div className="form-group">
-            <label className="form-label">Password</label>
+            <label className="form-label">🔒 Password</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               className="form-input"
+              placeholder="Create a password (min 6 characters)"
               required
             />
           </div>
           
           <div className="form-group">
-            <label className="form-label">Confirm Password</label>
+            <label className="form-label">🔐 Confirm Password</label>
             <input
               type="password"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
               className="form-input"
+              placeholder="Confirm your password"
               required
             />
           </div>
@@ -116,15 +123,15 @@ const Register = () => {
           <button 
             type="submit" 
             className="btn btn-primary"
-            style={{ width: '100%' }}
+            style={{ width: '100%', fontSize: '1.1rem', padding: '1rem' }}
             disabled={loading}
           >
-            {loading ? 'Creating Account...' : 'Register'}
+            {loading ? '🔄 Creating Account...' : '✨ Create Account'}
           </button>
         </form>
         
         <div className="auth-link">
-          Already have an account? <Link to="/login">Login here</Link>
+          Already have an account? <Link to="/login">🔐 Sign in here</Link>
         </div>
       </div>
     </div>

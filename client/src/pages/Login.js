@@ -38,36 +38,41 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
-        <h2 className="auth-title">Login to Your Account</h2>
+      <div className="auth-card animate-fadeIn">
+        <h2 className="auth-title">🔐 Welcome Back!</h2>
+        <p style={{ textAlign: 'center', color: 'var(--text-light)', marginBottom: '2rem' }}>
+          Sign in to access your feedback dashboard
+        </p>
         
         {error && (
-          <div className="alert alert-error">
-            {error}
+          <div className="alert alert-error animate-slideIn">
+            ❌ {error}
           </div>
         )}
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Email</label>
+            <label className="form-label">📧 Email Address</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               className="form-input"
+              placeholder="Enter your email"
               required
             />
           </div>
           
           <div className="form-group">
-            <label className="form-label">Password</label>
+            <label className="form-label">🔒 Password</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               className="form-input"
+              placeholder="Enter your password"
               required
             />
           </div>
@@ -75,15 +80,15 @@ const Login = () => {
           <button 
             type="submit" 
             className="btn btn-primary"
-            style={{ width: '100%' }}
+            style={{ width: '100%', fontSize: '1.1rem', padding: '1rem' }}
             disabled={loading}
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? '🔄 Signing in...' : '🚀 Sign In'}
           </button>
         </form>
         
         <div className="auth-link">
-          Don't have an account? <Link to="/register">Register here</Link>
+          Don't have an account? <Link to="/register">✨ Create one here</Link>
         </div>
       </div>
     </div>

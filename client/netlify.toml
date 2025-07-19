@@ -1,0 +1,39 @@
+# Netlify Configuration for Frontend Deployment
+# Place this file in the client directory
+
+# Build settings
+[build]
+  # Directory to publish (relative to client root)
+  publish = "build"
+  # Build command
+  command = "npm run build"
+
+# Environment variable setup
+[build.environment]
+  # Set NODE_VERSION for build environment
+  NODE_VERSION = "18"
+
+# Redirects and rewrites
+[[redirects]]
+  # SPA fallback
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers
+[[headers]]
+  # Headers for all paths
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Cache control for static assets
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  # Don't cache HTML (allows for quick updates)
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
