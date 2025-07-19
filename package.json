@@ -1,0 +1,22 @@
+{
+  "name": "feedback-platform",
+  "version": "1.0.0",
+  "description": "Feedback Collection Platform - MERN Stack",
+  "scripts": {
+    "install-all": "npm run install-server && npm run install-client",
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "build": "npm run install-client && cd client && npm run build",
+    "start": "cd server && npm start",
+    "heroku-postbuild": "npm run install-all && npm run build"
+  },
+  "keywords": ["feedback", "platform", "mern", "react", "express", "mongodb"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
