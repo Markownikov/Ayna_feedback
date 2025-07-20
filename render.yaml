@@ -1,26 +1,16 @@
-# Render.com configuration file
-
-# Backend API Service
 services:
+  # Backend API service
   - type: web
     name: feedback-platform-api
     runtime: node
-    region: oregon
-    plan: free
-    rootDir: server
-    buildCommand: npm install
+    buildCommand: npm run install-server
     startCommand: npm start
-    healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET
         sync: false
-
-# Note: For the frontend, we recommend deploying as a separate static site 
-# through the Render dashboard, as it provides more flexibility.
-# To deploy the frontend, follow the instructions in RENDER-DEPLOYMENT-GUIDE.md
+      - key: PORT
+        value: 8080
