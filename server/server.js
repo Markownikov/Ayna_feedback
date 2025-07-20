@@ -1,4 +1,12 @@
-const express = require('express');
+const expre// Middleware
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://aynafeedback.netlify.app', process.env.FRONTEND_URL, 'https://your-frontend-domain.com']
+    : ['http://localhost:3000'],
+  credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));ire('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
