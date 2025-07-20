@@ -48,6 +48,19 @@ app.get('/api/health', (req, res) => {
   res.json({ message: 'Server is running!' });
 });
 
+// Root API endpoint for testing
+app.get('/api', (req, res) => {
+  res.json({ 
+    message: 'API is running!',
+    endpoints: [
+      '/api/health',
+      '/api/auth/login',
+      '/api/auth/register',
+      '/api/forms'
+    ]
+  });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
